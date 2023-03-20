@@ -28,7 +28,7 @@ public class fileMethods {
         String YESorNO = "";
         do {
             keyboardInput.nextLine();
-            System.out.print("Type name of file or press 0 if you want to return to main context: ");
+            System.out.print("Type name of file (with extension) or press 0 if you want to return to main context: ");
             String fileName = keyboardInput.next();
 
             this.newFile = new File("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + fileName);
@@ -62,7 +62,7 @@ public class fileMethods {
     public void writingInFile(){
 
         keyboardInput.nextLine();
-        System.out.print("Type name of file in which you want to write or press 0 if you want to return to main context: ");
+        System.out.print("Type name of file (with extension) in which you want to write or press 0 if you want to return to main context: ");
         String toWriteInFile = keyboardInput.next();
 
         this.newFile = new File("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + toWriteInFile);
@@ -106,38 +106,45 @@ public class fileMethods {
     public void readingFile(){
 
         keyboardInput.nextLine();
-        System.out.print("Type name of file which you want to read or press 0 if you want to return to main context:  :");
+        System.out.print("Type name of file (with extension) which you want to read or press 0 if you want to return to main context: ");
         String toReadFile = keyboardInput.next();
-        FileReader reading = null;
+
+        this.newFile = new File("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + toReadFile);
+
+        if(newFile.exists()) {
+            FileReader reading = null;
 
 
-        try {
-            reading = new FileReader("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\"+ toReadFile );
-        } catch (FileNotFoundException e) {
-            System.out.println("File " + toReadFile + " doesn't exist.Please give valid Input.");
+            try {
+                reading = new FileReader("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + toReadFile);
+            } catch (FileNotFoundException e) {
+                System.out.println("File " + toReadFile + " doesn't exist.Please give valid Input.");
 
-        }
-
-        if(toReadFile.equals("0")){
-            requirementsOfProject();
-        }else {
-            Scanner scanning = new Scanner(reading);
-            while (scanning.hasNextLine()) {
-                String line = scanning.nextLine();
-                System.out.println(line);
             }
-        }
-        try {
-            reading.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+                Scanner scanning = new Scanner(reading);
+                while (scanning.hasNextLine()) {
+                    String line = scanning.nextLine();
+                    System.out.println(line);
+                }
+
+            try {
+                reading.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }else if (toReadFile.equals("0")) {
+            requirementsOfProject();
+        }else{
+
+            System.out.println("\nFile doesn't exist.Please give valid input.\n");
+            readingFile();
         }
     }
 
     public void deletingFile(){
 
         keyboardInput.nextLine();
-        System.out.print("Type name of file which you want to delete: ");
+        System.out.print("Type name of file (with extension) which you want to delete: ");
         String toDeleteFile = keyboardInput.next();
         File folder = new File("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + toDeleteFile);
 
