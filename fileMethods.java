@@ -15,7 +15,7 @@ public class fileMethods {
         System.out.println("Type 6: If you want to exit ");
         System.out.println();
 
-        System.out.println("Please type any option:\n");
+        System.out.print("Please type any option: ");
         int choice = keyboardInput.nextInt();
         return choice;
 
@@ -27,7 +27,7 @@ public class fileMethods {
         String YESorNO = "";
         do {
             keyboardInput.nextLine();
-            System.out.println("Type name of file: ");
+            System.out.print("Type name of file or press 0 if you want to return to main context: ");
             String fileName = keyboardInput.next();
 
             File newFile = new File("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + fileName);
@@ -35,10 +35,18 @@ public class fileMethods {
             if (newFile.exists()) {
 
                 keyboardInput.nextLine();
-                System.out.println("File " + newFile.getName() + " already exists!.Do you want to give another name? (y/n)");
+                System.out.print("File " + newFile.getName() + " already exists!.Do you want to give another name? (y/n)");
                 YESorNO = keyboardInput.next();
 
-            } else {
+            } else if(fileName.equals("0")){
+
+
+                break;
+               // requirementsOfProject();
+                //break;
+
+
+            }else {
                 try {
                     newFile.createNewFile();
                 } catch (IOException e) {
@@ -53,20 +61,29 @@ public class fileMethods {
     public void writingInFile(){
 
         keyboardInput.nextLine();
-        System.out.println("Type name of file in which you want to write:");
+        System.out.print("Type name of file in which you want to write or press 0 if you want to return to main context: ");
         String toWriteInFile = keyboardInput.next();
-        FileWriter writing = null;
+        FileWriter writing;
         try {
-            writing = new FileWriter("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + toWriteInFile);
+             writing = new FileWriter("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + toWriteInFile,true);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        keyboardInput.nextLine();
-        System.out.println("Write below");
-        String toWrite = keyboardInput.nextLine();
+        if(toWriteInFile.equals("0")){
+            requirementsOfProject();
+        }else {
+            keyboardInput.nextLine();
+            System.out.println("Write below");
+            String toWrite = keyboardInput.nextLine();
+            try {
+                writing.write("\n"+ toWrite);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         try {
-            writing.write(toWrite);
+            writing.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -80,14 +97,15 @@ public class fileMethods {
     public void readingFile(){
 
         keyboardInput.nextLine();
-        System.out.println("Type name of file which you want to read:");
+        System.out.print("Type name of file which you want to read:");
         String toReadFile = keyboardInput.next();
+        FileReader reading;
 
-        FileReader reading = null;
+
         try {
             reading = new FileReader("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\"+ toReadFile );
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+           throw new RuntimeException(e);
         }
 
         Scanner scanning = new Scanner(reading);
@@ -105,7 +123,7 @@ public class fileMethods {
     public void deletingFile(){
 
         keyboardInput.nextLine();
-        System.out.println("Type name of file which you want to delete:");
+        System.out.print("Type name of file which you want to delete: ");
         String toDeleteFile = keyboardInput.next();
         File folder = new File("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + toDeleteFile);
 
