@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class fileMethods {
     Scanner keyboardInput = new Scanner(System.in);
+    File newFile;
 
     public int requirementsOfProject(){
         System.out.println("Type 1: If you want to create a new file");
@@ -30,7 +31,7 @@ public class fileMethods {
             System.out.print("Type name of file or press 0 if you want to return to main context: ");
             String fileName = keyboardInput.next();
 
-            File newFile = new File("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + fileName);
+            this.newFile = new File("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + fileName);
 
             if (newFile.exists()) {
 
@@ -63,55 +64,68 @@ public class fileMethods {
         keyboardInput.nextLine();
         System.out.print("Type name of file in which you want to write or press 0 if you want to return to main context: ");
         String toWriteInFile = keyboardInput.next();
-        FileWriter writing;
-        try {
-             writing = new FileWriter("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + toWriteInFile,true);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-        if(toWriteInFile.equals("0")){
-            requirementsOfProject();
-        }else {
-            keyboardInput.nextLine();
-            System.out.println("Write below");
-            String toWrite = keyboardInput.nextLine();
+        this.newFile = new File("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + toWriteInFile);
+
+        if(newFile.exists()) {
+            FileWriter writing;
             try {
-                writing.write("\n"+ toWrite);
+                writing = new FileWriter("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + toWriteInFile, true);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
-        try {
-            writing.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            writing.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+                keyboardInput.nextLine();
+                System.out.println("Write below");
+                String toWrite = keyboardInput.nextLine();
+                try {
+                    writing.write("\n" + toWrite);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            try {
+                writing.flush();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                writing.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }else if (toWriteInFile.equals("0")) {
+            requirementsOfProject();
+        }else{
+            System.out.println("\nFile doesn't exist.Please give valid input.\n");
+            writingInFile();
+
         }
     }
 
     public void readingFile(){
 
         keyboardInput.nextLine();
-        System.out.print("Type name of file which you want to read:");
+        System.out.print("Type name of file which you want to read or press 0 if you want to return to main context:  :");
         String toReadFile = keyboardInput.next();
-        FileReader reading;
+        FileReader reading = null;
 
 
         try {
             reading = new FileReader("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\"+ toReadFile );
         } catch (FileNotFoundException e) {
-           throw new RuntimeException(e);
+            System.out.println("File " + toReadFile + " doesn't exist.Please give valid Input.");
+
         }
 
-        Scanner scanning = new Scanner(reading);
-        while(scanning.hasNextLine()){
-            String line = scanning.nextLine();
-            System.out.println(line);
+        if(toReadFile.equals("0")){
+            requirementsOfProject();
+        }else {
+            Scanner scanning = new Scanner(reading);
+            while (scanning.hasNextLine()) {
+                String line = scanning.nextLine();
+                System.out.println(line);
+            }
         }
         try {
             reading.close();
