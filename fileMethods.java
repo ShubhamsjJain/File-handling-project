@@ -144,14 +144,19 @@ public class fileMethods {
     public void deletingFile(){
 
         keyboardInput.nextLine();
-        System.out.print("Type name of file (with extension) which you want to delete: ");
+        System.out.print("Type name of file (with extension) which you want to delete or press 0 if you want to return to main context: : ");
         String toDeleteFile = keyboardInput.next();
-        File folder = new File("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + toDeleteFile);
+        this.newFile = new File("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + toDeleteFile);
 
-        if(folder.delete()){
-           System.out.println("File "+ folder.getName() + " has been deleted successfully");
-     }else{
-            System.out.println("Error in deleting file");
+        if(newFile.exists()){
+
+            newFile.delete();
+           System.out.println("File "+ newFile.getName() + " has been deleted successfully");
+        }else if (toDeleteFile.equals("0")) {
+            requirementsOfProject();
+        }else{
+            System.out.println("\nCan't delete!!.File " + newFile.getName() + " doesn't exist.\n");
+            deletingFile();
         }
     }
 
