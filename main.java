@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class main {
 
-    public static void main(String[] args) {
+    public static void main(String args []) {
 
         fileMethods fm = new fileMethods();
         Scanner keyboardInput = new Scanner(System.in);
@@ -48,13 +48,22 @@ public class main {
                     break;
 
                 case 6:
+
+                    fm.searchingFile();
                     break;
+
+                case 7:
+
+                    fm.exit();
+                    break;
+
 
                 default:
 
                     System.out.println("INVALID Input!!Please try again.");
                     break;
             }
+
             do {
                 keyboardInput.nextLine();
                 System.out.println("Do you want to perform some more actions? (Y/N)");
