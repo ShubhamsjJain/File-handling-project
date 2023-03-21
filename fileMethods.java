@@ -3,7 +3,7 @@ package file_handling.project;
 import java.io.*;
 import java.util.Scanner;
 
-import static file_handling.project.main.*;
+
 
 public class fileMethods {
     String fileName;
