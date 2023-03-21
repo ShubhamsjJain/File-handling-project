@@ -3,9 +3,16 @@ package file_handling.project;
 import java.io.*;
 import java.util.Scanner;
 
+import static file_handling.project.main.*;
+
 public class fileMethods {
+    String fileName;
     Scanner keyboardInput = new Scanner(System.in);
+
     File newFile;
+
+
+    // REQUIREMENTS OF APPLICATION
 
     public int requirementsOfProject(){
         System.out.println("Type 1: If you want to create a new file");
@@ -13,7 +20,8 @@ public class fileMethods {
         System.out.println("Type 3: If you want to read file");
         System.out.println("Type 4: If you want to delete file");
         System.out.println("Type 5: To view list of files");
-        System.out.println("Type 6: If you want to exit ");
+        System.out.println("Type 6: If you want to search a file ");
+        System.out.println("Type 7: If you want to exit");
         System.out.println();
 
         System.out.print("Please type any option: ");
@@ -23,13 +31,16 @@ public class fileMethods {
 
     }
 
+
+    // CREATING FILES
+
     public void creatingFile(){
 
         String YESorNO = "";
         do {
             keyboardInput.nextLine();
             System.out.print("Type name of file (with extension) or press 0 if you want to return to main context: ");
-            String fileName = keyboardInput.next();
+            fileName = keyboardInput.next();
 
             this.newFile = new File("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\" + fileName);
 
@@ -40,7 +51,6 @@ public class fileMethods {
                 YESorNO = keyboardInput.next();
 
             } else if(fileName.equals("0")){
-
 
                 break;
                // requirementsOfProject();
@@ -58,6 +68,10 @@ public class fileMethods {
             }
         }while(YESorNO.equals("y") ||  YESorNO.equals("Y"));
     }
+
+
+    // WRITING IN FILE
+
 
     public void writingInFile(){
 
@@ -103,6 +117,10 @@ public class fileMethods {
         }
     }
 
+
+    // READING FILE
+
+
     public void readingFile(){
 
         keyboardInput.nextLine();
@@ -141,6 +159,10 @@ public class fileMethods {
         }
     }
 
+
+    // DELETING FILE
+
+
     public void deletingFile(){
 
         keyboardInput.nextLine();
@@ -160,6 +182,10 @@ public class fileMethods {
         }
     }
 
+
+    // LISTING ALL FILES
+
+
     public void listOfFiles(){
 
         File folder = new File("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\");
@@ -173,8 +199,54 @@ public class fileMethods {
         }
     }
 
+
+
+    // SEARCHING A FILE
+
+
+    public void searchingFile(){
+
+        System.out.println("Type the name of file (with extension) which you want to search or press 0 if you want to return to main context: ");
+
+        String toSearchFile = keyboardInput.next();
+
+        this.newFile = new File("C:\\Users\\kamna jain\\Desktop\\programming\\udemy_exercises\\src\\file_handling\\project\\pathFiles\\");
+
+        String[] file_List = newFile.list();
+        int flag_s = 0;
+
+        if (toSearchFile.equals("0")) {
+
+            return;
+            //requirementsOfProject();
+
+        }else if (file_List == null) {
+            System.out.println("Directory is empty!");
+        }else {
+
+            // Linear search in the array
+            for (int i = 0; i < file_List.length; i++) {
+                String search_filename = file_List[i];
+                if (search_filename.equalsIgnoreCase(toSearchFile)) {
+                    System.out.println(toSearchFile + " found");
+                    flag_s = 1;
+                }
+            }
+        }
+
+        if ((!(toSearchFile.equals("0"))) && (flag_s == 0)) {
+            System.out.println("File Not Found");
+        }
+
+    }
+
+
+    // EXITING
+
+
     public void exit(){
 
+        System.out.println("Thanks for visiting!");
     }
 
 
