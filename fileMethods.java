@@ -12,6 +12,18 @@ public class fileMethods {
     File newFile;
 
 
+
+    // WELCOME SCREEN
+
+
+    public void welcomeScreen(){
+        System.out.println();
+        System.out.println("----------------------WELCOME to VIRTUAL KEY REPOSITORY--------------------------");
+        System.out.println();
+        System.out.println("-------------ASSIGNMENT 1 - By FULL STACK DEVELOPER SHUBHAM JAIN-----------------");
+        System.out.println();
+        System.out.println();
+    }
     // REQUIREMENTS OF APPLICATION
 
     public int requirementsOfProject(){

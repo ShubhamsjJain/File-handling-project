@@ -10,6 +10,8 @@ public class main {
         Scanner keyboardInput = new Scanner(System.in);
         String performMoreActions = "";
 
+        fm.welcomeScreen();
+
         do {
 
 
