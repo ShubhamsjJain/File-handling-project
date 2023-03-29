@@ -1,5 +1,6 @@
 package file_handling.project;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class main {
@@ -9,13 +10,11 @@ public class main {
         fileMethods fm = new fileMethods();
         Scanner keyboardInput = new Scanner(System.in);
         String performMoreActions = "";
+        int choice = 0;
 
         fm.welcomeScreen();
 
         do {
-
-
-            int choice = 0;
 
             try {
                 choice = fm.requirementsOfProject();
@@ -63,20 +62,30 @@ public class main {
                 default:
 
                     System.out.println("INVALID Input!!Please try again.");
+                    System.out.println();
                     break;
             }
 
-            do {
-                keyboardInput.nextLine();
-                System.out.println("Do you want to perform some more actions? (Y/N)");
-                performMoreActions = keyboardInput.next();
-                if ((performMoreActions.equals("y")) || (performMoreActions.equals("Y")) || (performMoreActions.equals("n")) || (performMoreActions.equals("N"))) {
-                    break;
-                } else {
-                    System.out.println("Invalid Input.Please try again.");
-                }
-            }while(!((performMoreActions.equals("y")) || (performMoreActions.equals("Y"))));
+            boolean validInput = false;
 
-        }while((performMoreActions.equals("y")) ||(performMoreActions.equals("Y")));
+            do {
+                try {
+                    System.out.println("Do you want to perform some more actions? (Y/N)");
+                    performMoreActions = keyboardInput.next();
+                    if (performMoreActions.equalsIgnoreCase("y") || performMoreActions.equalsIgnoreCase("n")) {
+                        validInput = true;   // i.e when user gave correct input(Y or N) hence value got stored in performMoreActions without throwing an error
+                    } else {
+                        System.out.println("Please give valid input.Y or N");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println();
+                    System.out.println("Invalid input.Please enter Y or N.");
+                    keyboardInput.next();  // to clean the scanner buffer for invalid input
+                    System.out.println();
+                }
+            }while (validInput == false);
+
+
+        }while((performMoreActions.equalsIgnoreCase("y")));
     }
 }

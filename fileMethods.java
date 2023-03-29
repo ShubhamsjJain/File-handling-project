@@ -1,6 +1,7 @@
 package file_handling.project;
 
 import java.io.*;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -10,6 +11,7 @@ public class fileMethods {
     Scanner keyboardInput = new Scanner(System.in);
 
     File newFile;
+
 
 
 
@@ -27,19 +29,34 @@ public class fileMethods {
     // REQUIREMENTS OF APPLICATION
 
     public int requirementsOfProject(){
-        System.out.println("Type 1: If you want to create a new file");
-        System.out.println("Type 2: If you want to write something in file");
-        System.out.println("Type 3: If you want to read file");
-        System.out.println("Type 4: If you want to delete file");
-        System.out.println("Type 5: To view list of files");
-        System.out.println("Type 6: If you want to search a file ");
-        System.out.println("Type 7: If you want to exit");
-        System.out.println();
 
-        System.out.print("Please type any option: ");
-        int choice = keyboardInput.nextInt();
-        return choice;
+            int choice = 0;
+            System.out.println("Type 1: If you want to create a new file");
+            System.out.println("Type 2: If you want to write something in file");
+            System.out.println("Type 3: If you want to read file");
+            System.out.println("Type 4: If you want to delete file");
+            System.out.println("Type 5: To view list of files");
+            System.out.println("Type 6: If you want to search a file ");
+            System.out.println("Type 7: If you want to exit");
+            System.out.println();
 
+            boolean validInput = false;
+
+            do {
+                try {
+                    System.out.print("Please type any option: ");
+                    choice = keyboardInput.nextInt();  // VALUE will be saved within choice only when input is integer
+                    validInput = true;   // i.e when user gave correct input(integer) hence value got stored in choice without throwing an error
+                } catch (InputMismatchException e) {
+                    System.out.println();
+                    System.out.println("Invalid input.Please enter from 1 to 7.");
+                    keyboardInput.next();  // to clean the scanner buffer for invalid input
+                    System.out.println();
+                }
+            }while (validInput == false);
+
+
+                return choice;
 
     }
 
